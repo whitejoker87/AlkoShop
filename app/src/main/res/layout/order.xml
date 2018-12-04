@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Номер заказа"
+                android:text='@{"№ " + String.valueOf(order.id)}'
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Дата заказа"
+                android:text="@{order.date}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_number" />
 
@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Статус заказа"
+                android:text='@{"Статус заказа: " + order.status}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -64,7 +64,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_status" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/recycler_order_items"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -80,9 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Сумма заказа"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/recycler_order_items" />
 
             <TextView
                 android:id="@+id/tv_discount"
@@ -90,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Скидка"
+                android:text='@{"Скидка: " + String.valueOf(order.discountRub)}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sum_order" />
 
@@ -100,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Доставка"
+                android:text='@{"Доставка: " + String.valueOf(order.delivery)}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_discount" />
 

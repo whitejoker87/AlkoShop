@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         reader = new InputStreamReader(getResources().openRawResource(R.raw.data));
-        UserOrdersResponse response = UserOrdersResponse.fromJson(reader);
+        model.setReaderJSON(reader);
+        //UserOrdersResponse response = UserOrdersResponse.fromJson(reader);
         setFragment(new MainFragment());
     }
 

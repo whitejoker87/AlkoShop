@@ -9,7 +9,7 @@ import java.util.List;
 public class UserOrdersResponse {
 
     private int status;
-    private List<UserOrderItem> data = new ArrayList<>();
+    private List<UserOrder> data = new ArrayList<>();
 
     public int getStatus() {
         return status;
@@ -19,11 +19,11 @@ public class UserOrdersResponse {
         this.status = status;
     }
 
-    public List<UserOrderItem> getData() {
+    public List<UserOrder> getData() {
         return data;
     }
 
-    public void setData(List<UserOrderItem> data) {
+    public void setData(List<UserOrder> data) {
         this.data = data;
     }
 

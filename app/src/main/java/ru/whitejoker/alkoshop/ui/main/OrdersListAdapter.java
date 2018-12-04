@@ -12,6 +12,7 @@ import java.util.List;
 
 import ru.whitejoker.alkoshop.R;
 import ru.whitejoker.alkoshop.UserOrder;
+import ru.whitejoker.alkoshop.UserOrderItem;
 import ru.whitejoker.alkoshop.databinding.OrderBinding;
 
 public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.OrderViewHolder> {
@@ -19,6 +20,8 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.Or
     OrdersItemListAdapter ordersItemListAdapter;
 
     List<UserOrder> ordersList;
+
+    OrderBinding orderBinding;
 
     public OrdersListAdapter(List<UserOrder> ordersList) {
         if (ordersList == null) {
@@ -31,15 +34,23 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.Or
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        OrderBinding orderBinding = DataBindingUtil.inflate(inflater, R.layout.order, parent,false);
+        orderBinding = DataBindingUtil.inflate(inflater, R.layout.order, parent,false);
         return new OrderViewHolder(orderBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+        List<UserOrderItem> items = ordersList.get(position).getItems();
+        int sum = 0;
+        for (UserOrderItem item:items) {
+            sum += item.getPrice();
+        }
         holder.bind(ordersList.get(position));
-        ordersItemListAdapter = new OrdersItemListAdapter(ordersList.get(position).getItems());
-        holder.orderBinding.recyclerView.setAdapter(ordersItemListAdapter);
+        holder.orderBinding.tvSumOrder.setText("Сумма заказа: " + sum);
+        holder.orderBinding.tvToPay.setText("К оплате: " + (sum + ordersList.get(position).getDelivery() - ordersList.get(position).getDiscountRub()));
+        ordersItemListAdapter = new OrdersItemListAdapter(items);
+        holder.orderBinding.recyclerOrderItems.setAdapter(ordersItemListAdapter);
+
     }
 
     @Override
@@ -53,7 +64,8 @@ public class OrdersListAdapter extends RecyclerView.Adapter<OrdersListAdapter.Or
 
         public OrderViewHolder(OrderBinding orderBinding) {
             super(orderBinding.getRoot());
-            RecyclerView ordersList = orderBinding.recyclerView;
+            this.orderBinding = orderBinding;
+            RecyclerView ordersList = orderBinding.recyclerOrderItems;
             RecyclerView.LayoutManager layout = new LinearLayoutManager(orderBinding.getRoot().getContext());
             if (!layout.isAutoMeasureEnabled())layout.setAutoMeasureEnabled(true);
             ordersList.setLayoutManager(layout);

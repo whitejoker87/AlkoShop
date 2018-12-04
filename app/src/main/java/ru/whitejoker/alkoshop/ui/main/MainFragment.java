@@ -1,5 +1,6 @@
 package ru.whitejoker.alkoshop.ui.main;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.InputStreamReader;
+
 import ru.whitejoker.alkoshop.R;
+import ru.whitejoker.alkoshop.UserOrdersResponse;
 import ru.whitejoker.alkoshop.databinding.MainFragmentBinding;
 
 public class MainFragment extends Fragment {
@@ -21,6 +25,8 @@ public class MainFragment extends Fragment {
     private MainFragmentBinding binding;
 
     private RecyclerView listOrders;
+
+    UserOrdersResponse response;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -40,10 +46,16 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        model = ViewModelProviders.of(this).get(MainViewModel.class);
         listOrders = binding.listOrders;
         listOrders.setLayoutManager(new LinearLayoutManager(getActivity()));
-        listOrders.setAdapter();
+        model = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
+        model.getReaderJSON().observe(this, new Observer<InputStreamReader>() {
+            @Override
+            public void onChanged(@Nullable InputStreamReader inputStreamReader) {
+                response = UserOrdersResponse.fromJson(inputStreamReader);
+                listOrders.setAdapter(new OrdersListAdapter(response.getData()));
+            }
+        });
         // TODO: Use the ViewModel
     }
 
