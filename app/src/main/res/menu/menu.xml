@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".IntChatMain">
+    <item
+        android:id="@+id/action_1"
+        android:icon="@drawable/baseline_search_24"
+        android:orderInCategory="100"
+        android:title="1"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_2"
+        android:icon="@drawable/baseline_phone_callback_24"
+        android:orderInCategory="100"
+        android:title="2"
+        app:showAsAction="always" />
+</menu>

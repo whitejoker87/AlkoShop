@@ -8,5 +8,6 @@
     android:layout_height="match_parent"
     android:minHeight="?attr/actionBarSize"
     app:title="Личный кабинет"
-    app:titleTextColor="@android:color/white"
-    android:background="@color/colorPrimary"/>
+    app:titleTextColor="@color/colorPrimary"
+    android:background="@android:color/white"
+    app:titleTextAppearance="@style/Toolbar.TitleText" />
