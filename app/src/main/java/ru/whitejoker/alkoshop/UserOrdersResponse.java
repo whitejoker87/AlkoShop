@@ -2,6 +2,7 @@ package ru.whitejoker.alkoshop;
 
 import com.google.gson.Gson;
 
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class UserOrdersResponse {
         this.data = data;
     }
 
-    public static UserOrdersResponse fromJson(String json){
+    public static UserOrdersResponse fromJson(Reader json){
         try{
             return new Gson().fromJson(json, UserOrdersResponse.class);
         }catch (Exception e){
