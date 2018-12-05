@@ -13,10 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Objects;
 
 import ru.whitejoker.alkoshop.R;
-import ru.whitejoker.alkoshop.UserOrdersResponse;
+import ru.whitejoker.alkoshop.model.UserOrder;
 import ru.whitejoker.alkoshop.databinding.MainFragmentBinding;
 
 public class MainFragment extends Fragment {
@@ -25,8 +26,7 @@ public class MainFragment extends Fragment {
     private MainFragmentBinding binding;
 
     private RecyclerView listOrders;
-
-    UserOrdersResponse response;
+    private OrdersListAdapter ordersListAdapter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -48,15 +48,19 @@ public class MainFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         listOrders = binding.listOrders;
         listOrders.setLayoutManager(new LinearLayoutManager(getActivity()));
-        model = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        model.getReaderJSON().observe(this, new Observer<InputStreamReader>() {
+        model = ViewModelProviders.of(Objects.requireNonNull(getActivity())).get(MainViewModel.class);
+        model.getDataFromJSON().observe(this, new Observer<List<UserOrder>>() {
             @Override
-            public void onChanged(@Nullable InputStreamReader inputStreamReader) {
-                response = UserOrdersResponse.fromJson(inputStreamReader);
-                listOrders.setAdapter(new OrdersListAdapter(response.getData()));
+            public void onChanged(@Nullable List<UserOrder> orders) {
+                if (orders != null) {
+                    if (listOrders.getAdapter() == null) {
+                        ordersListAdapter = new OrdersListAdapter(orders);
+                        listOrders.setAdapter(ordersListAdapter);
+                    }
+                    else ordersListAdapter.notifyDataSetChanged();
+                }
             }
         });
-        // TODO: Use the ViewModel
     }
 
 }

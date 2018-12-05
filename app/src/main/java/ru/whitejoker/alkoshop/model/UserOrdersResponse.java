@@ -1,4 +1,4 @@
-package ru.whitejoker.alkoshop;
+package ru.whitejoker.alkoshop.model;
 
 import com.google.gson.Gson;
 

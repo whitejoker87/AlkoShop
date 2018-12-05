@@ -25,10 +25,6 @@ public class MainActivity extends AppCompatActivity {
 
     InputStreamReader reader;
 
-    private Toolbar toolbar;
-    private ActionBarDrawerToggle actionBarDrawerToggle;
-    private DrawerLayout drawerLayout;
-
     private MainViewModel model;
     private MainActivityBinding binding;
 
@@ -45,15 +41,15 @@ public class MainActivity extends AppCompatActivity {
         model = ViewModelProviders.of(this).get(MainViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
 
-        toolbar = (Toolbar)binding.toolbarOrders;
-        drawerLayout = binding.drawer;
+        Toolbar toolbar = (Toolbar) binding.toolbarOrders;
+        DrawerLayout drawerLayout = binding.drawer;
 
         setSupportActionBar(toolbar);
         final ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
+            ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                     R.string.open,
                     R.string.close) {
 
@@ -70,12 +66,10 @@ public class MainActivity extends AppCompatActivity {
             actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
             drawerLayout.setDrawerListener(actionBarDrawerToggle);
             actionBarDrawerToggle.syncState();
-
         }
 
         reader = new InputStreamReader(getResources().openRawResource(R.raw.data));
-        model.setReaderJSON(reader);
-        //UserOrdersResponse response = UserOrdersResponse.fromJson(reader);
+        model.convertJSON(reader);
         setFragment(new MainFragment());
     }
 
@@ -107,5 +101,4 @@ public class MainActivity extends AppCompatActivity {
 //                return super.onOptionsItemSelected(item);
 //        }
 //    }
-
 }

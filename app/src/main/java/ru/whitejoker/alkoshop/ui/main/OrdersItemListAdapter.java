@@ -4,27 +4,25 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 import ru.whitejoker.alkoshop.R;
-import ru.whitejoker.alkoshop.UserOrderItem;
+import ru.whitejoker.alkoshop.model.UserOrderItem;
 import ru.whitejoker.alkoshop.databinding.OrderItemBinding;
 
 public class OrdersItemListAdapter extends RecyclerView.Adapter<OrdersItemListAdapter.OrdersItemViewHolder> {
 
-    List<UserOrderItem> orderItems;
+    private List<UserOrderItem> orderItems;
 
-    public OrdersItemListAdapter(List<UserOrderItem> orderItems) {
+    OrdersItemListAdapter(List<UserOrderItem> orderItems) {
 
         if (orderItems == null) {
             throw new IllegalArgumentException("ItemsList must not be null");
         }
         this.orderItems = orderItems;
     }
-
 
     @NonNull
     @Override
@@ -44,16 +42,16 @@ public class OrdersItemListAdapter extends RecyclerView.Adapter<OrdersItemListAd
         return orderItems.size();
     }
 
-    public class OrdersItemViewHolder extends RecyclerView.ViewHolder {
+    class OrdersItemViewHolder extends RecyclerView.ViewHolder {
 
         OrderItemBinding orderItemBinding;
 
-        public OrdersItemViewHolder(OrderItemBinding orderItemBinding) {
+        OrdersItemViewHolder(OrderItemBinding orderItemBinding) {
             super(orderItemBinding.getRoot());
             this.orderItemBinding = orderItemBinding;
         }
 
-        public void bind(UserOrderItem orderItem) {
+        void bind(UserOrderItem orderItem) {
             orderItemBinding.setOrderItem(orderItem);
             orderItemBinding.executePendingBindings();
         }
