@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text='@{"Статус заказа: " + order.status}'
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -54,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Повторить заказ"
                 android:textColor="@android:color/holo_red_dark"
@@ -124,7 +125,9 @@
                 android:background="@drawable/dashed_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_to_pay" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_to_pay"
+
+                android:layerType="software"/>
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
